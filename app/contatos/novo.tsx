@@ -1,8 +1,8 @@
-import { View, Alert } from 'react-native';
-import { useRouter } from 'expo-router';
-import FormContato from '../../components/FormContato';
-import api, { loadAuthToken } from '../../lib/api';
-import { global } from '../../styles/global';
+import { View, Alert } from "react-native";
+import { useRouter } from "expo-router";
+import FormContato from "../../components/FormContato";
+import api, { loadAuthToken } from "../../lib/api";
+import { style } from "../../styles/main";
 
 export default function NovoContato() {
   const router = useRouter();
@@ -10,15 +10,18 @@ export default function NovoContato() {
   const salvar = async (dados: any) => {
     try {
       await loadAuthToken();
-      await api.post('/contatos', dados); // { nome, ..., fotoId }
+      await api.post("/contatos", dados); // { nome, ..., fotoId }
       router.back();
     } catch (err: any) {
-      Alert.alert('Erro', err?.response?.data?.mensagem || 'Falha ao criar con-tato');
+      Alert.alert(
+        "Erro",
+        err?.response?.data?.mensagem || "Falha ao criar con-tato"
+      );
     }
   };
 
   return (
-    <View style={global.container}>
+    <View style={style.container}>
       <FormContato onSubmit={salvar} />
     </View>
   );
